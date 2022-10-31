@@ -1,6 +1,7 @@
 # frozen_string_literal: true
-
-require "omniauth/datadog"
+require "rspec"
+require "omniauth"
+require "omniauth-datadog"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

@@ -1,8 +1,8 @@
-require_relative "lib/omniauth/datadog/version"
+require_relative "lib/omniauth-datadog/version"
 
 Gem::Specification.new do |spec|
   spec.name = "omniauth-datadog"
-  spec.version = Omniauth::Datadog::VERSION
+  spec.version = OmniAuth::Datadog::VERSION
   spec.authors = ["Vantage Engineering"]
   spec.email = ["support@vantage.sh"]
   spec.require_paths = %w[lib]
@@ -24,5 +24,5 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "rake"
-  spec.add_development_dependency "minitest"
+  spec.add_development_dependency "rspec"
 end

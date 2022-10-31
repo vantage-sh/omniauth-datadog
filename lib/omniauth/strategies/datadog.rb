@@ -1,19 +1,19 @@
-require 'omniauth/strategies/oauth2'
-
-module Omniauth
+module OmniAuth
   module Strategies
-    class Datadog
+    class Datadog < OmniAuth::Strategies::OAuth2
+      CLIENT_OPTIONS = {
+        site: 'https://app.datadoghq.com',
+        authorize_url: 'oauth2/v1/authorize',
+        token_url: 'oauth2/v1/token',
+        auth_scheme: :request_body
+      }
+
       VALID_DOMAINS = [
         'datadoghq.eu',
         'datadoghq.com'
       ]
 
-      option :client_options, 
-        site: 'https://app.datadoghq.com',
-        authorize_url: 'oauth2/v1/authorize',
-        token_url: 'oauth2/v1/token',
-        auth_scheme: :request_body
-      
+      option :client_options, CLIENT_OPTIONS
       option :pkce, true
 
       uid do
@@ -29,7 +29,7 @@ module Omniauth
       end
 
       def callback_url
-        full_host + script_name + callback_path
+        full_host + callback_path
       end
 
       def build_access_token
@@ -38,12 +38,11 @@ module Omniauth
       end
 
       # Datadog has a few different domains.
-      # Based on the request set the appropriate site.
       def client
         client_options = options.client_options
         client_options['site'] = request.params['site'] if request.params['site'] && VALID_DOMAINS.any? { |d| request.params['site'].end_with?(d) }
         ::OAuth2::Client.new(options.client_id, options.client_secret, deep_symbolize(client_options))
-      end    
+      end
     end
   end
 end
