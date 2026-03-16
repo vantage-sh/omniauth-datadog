@@ -106,7 +106,10 @@ GEM
     version_gem (1.1.9)
 
 PLATFORMS
+  arm64-darwin-21
+  arm64-darwin-23
   arm64-darwin-25
+  x86_64-linux
 
 DEPENDENCIES
   bundler (~> 2.0)
